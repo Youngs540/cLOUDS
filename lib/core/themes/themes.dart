@@ -13,7 +13,6 @@ class AppTheme {
     useMaterial3: true,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: sdark,
-
     textTheme: TextTheme(
       displayLarge: GoogleFonts.epilogue(
         fontSize: 28,
