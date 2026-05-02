@@ -10,7 +10,7 @@ class TopSearchBar extends StatelessWidget {
       children: [
         // 1. SEARCH BAR
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 48,
             child: TextField(
               style: TextStyle(color: AppTheme.textPrimary),

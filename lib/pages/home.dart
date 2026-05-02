@@ -144,8 +144,96 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: _buildPlayerBar(context)
     );
   }
+}
+
+Widget _buildPlayerBar(BuildContext context) {
+  return Container(
+    height: 90,
+    width: double.infinity,
+    color: AppTheme.pdark, // Consistent with Sidebar
+    padding: const EdgeInsets.symmetric(horizontal: 24),
+    child: Row(
+      children: [
+        // 1. Current Track Info
+        Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: const DecorationImage(
+              image: AssetImage('assets/images/album_art.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Odo", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            Text("Kojo Rain", style: TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
+          ],
+        ),
+        const SizedBox(width: 24),
+        const Icon(Icons.favorite_border, color: AppTheme.textSecondary, size: 20),
+
+        const Spacer(),
+
+        // 2. Playback Controls & Progress
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.shuffle, color: AppTheme.textSecondary, size: 18),
+                const SizedBox(width: 24),
+                const Icon(Icons.skip_previous, color: Colors.white, size: 24),
+                const SizedBox(width: 24),
+                // Play Button
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                  child: const Icon(Icons.play_arrow_rounded, color: Colors.black, size: 28),
+                ),
+                const SizedBox(width: 24),
+                const Icon(Icons.skip_next, color: Colors.white, size: 24),
+                const SizedBox(width: 24),
+                const Icon(Icons.repeat, color: AppTheme.textSecondary, size: 18),
+              ],
+            ),
+            const SizedBox(height: 8),
+            // Progress Bar
+            Row(
+              children: [
+                const Text("1:45", style: TextStyle(color: AppTheme.textSecondary, fontSize: 11)),
+                Container(
+                  width: 400, // Adjust based on your layout width
+                  margin: const EdgeInsets.symmetric(horizontal: 12),
+                  child: LinearProgressIndicator(
+                    value: 0.4, // Progress at 40%
+                    backgroundColor: AppTheme.selected, // #2A2A2A
+                    valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.newPurple),
+                    borderRadius: BorderRadius.circular(10),
+                    minHeight: 4,
+                  ),
+                ),
+                const Text("4:32", style: TextStyle(color: AppTheme.textSecondary, fontSize: 11)),
+              ],
+            ),
+          ],
+        ),
+
+        const Spacer(),
+
+        // 3. Volume/Extra Controls (Optional Placeholder)
+        const Icon(Icons.volume_up_outlined, color: AppTheme.textSecondary, size: 20),
+      ],
+    ),
+  );
 }
 
 // latest release banner
@@ -165,7 +253,7 @@ Widget _buildLatestReleaseHero() {
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
           begin: Alignment.bottomRight,
-          colors: [Colors.black.withOpacity(0.8), Colors.transparent],
+          colors: [Colors.black.withValues(alpha:0.8), Colors.transparent],
         ),
       ),
       child: Column(

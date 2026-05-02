@@ -29,7 +29,7 @@ class AppTheme {
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.white.withOpacity(0.05),
+      fillColor: Colors.white.withValues(alpha:0.05),
       hintStyle: GoogleFonts.beVietnamPro(color: textSecondary, fontSize: 14),
       prefixIconColor: textSecondary,
       border: OutlineInputBorder(
