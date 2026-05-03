@@ -1,5 +1,5 @@
 import 'package:clouds/core/themes/themes.dart';
-import 'package:clouds/pages/home.dart';
+import 'package:clouds/main_layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class cLOUDS extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const MainLayout(),
     );
   }
 }

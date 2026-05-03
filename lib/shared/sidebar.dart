@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:clouds/core/themes/themes.dart'; // Ensure this path is correct
 
 class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+  final int initialIndex;
+  final Function(int) onDestinationSelected;
+
+  const SideBar({
+    super.key,
+    this.initialIndex = 0,
+    required this.onDestinationSelected,
+  });
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -10,33 +17,63 @@ class SideBar extends StatefulWidget {
 
 class _SideBarState extends State<SideBar> {
   // Track which menu item is active
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex; // Set the index from the parent
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 250,
       color: AppTheme.pdark, // #181818
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // BRANDING SECTION
-          Text("cLOUDS", style: Theme.of(context).textTheme.displayLarge),
-           Text(
-            "Official Platform",
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-          const SizedBox(height: 60),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 40,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // TOP SECTION
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "cLOUDS",
+                          style: Theme.of(context).textTheme.displayLarge,
+                        ),
+                        Text(
+                          "Official Platform",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 60),
+                        _buildNavSection(),
+                      ],
+                    ),
 
-          // NAVIGATION ITEMS
-          _buildNavSection(),
-
-          const Spacer(),
-
-          // USER PROFILE CARD
-          _buildProfileCard(),
-        ],
+                    // BOTTOM SECTION
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: _buildProfileCard(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -47,8 +84,8 @@ class _SideBarState extends State<SideBar> {
       children: [
         _navItem(0, Icons.home_filled, "Home"),
         _navItem(1, Icons.music_note_outlined, "Music"),
-        _navItem(2, Icons.info_outline, "About Kojo Rain"),
-        _navItem(3, Icons.local_mall_outlined, "Merch"),
+        _navItem(2, Icons.mic_external_on_rounded, "cLOUDS studio"),
+        _navItem(3, Icons.info_outline, "about"),
       ],
     );
   }
@@ -64,7 +101,8 @@ class _SideBarState extends State<SideBar> {
           setState(() {
             _selectedIndex = index;
           });
-          // Add your navigation logic here (e.g., updating the main content)
+          // Instead of Navigator.push, we just tell the parent the index changed
+          widget.onDestinationSelected(index);
         },
         borderRadius: BorderRadius.circular(12),
         child: Container(
