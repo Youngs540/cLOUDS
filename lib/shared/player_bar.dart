@@ -39,7 +39,7 @@ class PlayerBar extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                'assets/images/album_art.jpg',
+                'assets/images/fam.jpg',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   // This prevents the app from crashing if the file is missing

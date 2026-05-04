@@ -20,10 +20,7 @@ class TopSearchBar extends StatelessWidget {
                   horizontal: 32,
                   vertical: 12,
                 ),
-                prefixIcon:  Icon(
-                  Icons.search,
-                  size: 20,
-                ),
+                prefixIcon: Icon(Icons.search, size: 20),
               ),
             ),
           ),
@@ -41,7 +38,7 @@ class TopSearchBar extends StatelessWidget {
         const CircleAvatar(
           radius: 18,
           backgroundImage: AssetImage(
-            'assets/pfp.png',
+            'assets/images/fam.jpg',
           ), // Replace with your asset
         ),
       ],

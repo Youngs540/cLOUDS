@@ -1,40 +1,27 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-enum LayoutTier {
-  desktop,
-  tablet,
-  mobileWeb,
-  smartphoneNative,
-}
+enum LayoutTier { desktop, tablet, mobileWeb, smartphoneNative }
 
 class LayoutUtils {
   static LayoutTier getTier(BuildContext context) {
+    // 1. Native Mobile Device Check
+    // If the actual platform is iOS or Android (even if running in a web browser on that device),
+    // return the smartphoneNative layout.
+    if (defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS) {
+      return LayoutTier.smartphoneNative;
+    }
+
+    // 2. Desktop/Web Width Checks
+    // For Desktop OSs (Windows, macOS, Linux, Fuchsia), rely on the window width.
     final width = MediaQuery.of(context).size.width;
 
-    // Mobile Web: Width < 600px AND kIsWeb == true. (A "shrunk" browser view).
-    if (kIsWeb && width < 600) {
-      return LayoutTier.mobileWeb;
-    }
-
-    // Smartphone Native: Device is Android/iOS (Native)
-    bool isNativeMobile = false;
-    if (!kIsWeb) {
-      isNativeMobile = Platform.isAndroid || Platform.isIOS;
-    }
-
-    if (isNativeMobile || width < 600) {
-      return kIsWeb ? LayoutTier.mobileWeb : LayoutTier.smartphoneNative;
-    }
-
-    // Tablet: Width between 600px and 1100px.
-    if (width >= 600 && width <= 1100) {
-      return LayoutTier.tablet;
-    }
-
-    // Desktop: Width > 1100px.
-    return LayoutTier.desktop;
+    return switch (width) {
+      < 600 => LayoutTier.mobileWeb,
+      < 1100 => LayoutTier.tablet,
+      _ => LayoutTier.desktop,
+    };
   }
 }
 
