@@ -9,7 +9,22 @@ class PlayerBar extends StatelessWidget {
     return Container(
       height: 90,
       width: double.infinity,
-      color: AppTheme.pdark,
+      decoration: BoxDecoration(
+        color: AppTheme.pdark, // <--- MOVE IT HERE
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withValues(alpha: 0.05),
+            width: 1,
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
@@ -37,20 +52,37 @@ class PlayerBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Odo",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                "Kojo Rain",
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 12),
+              // Wrapped in InkWell for interactivity
+              InkWell(
+                onTap: () {
+                  // Logic to navigate to the artist's page
+                  // print("Navigate to Kojo Rain's profile");
+                },
+                borderRadius: BorderRadius.circular(4),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2),
+                  child: Text(
+                    "Kojo Rain",
+                    style: TextStyle(
+                      color: AppTheme
+                          .newPurple, // Color changed to indicate it is a link
+                      fontSize: 12,
+                      decoration:
+                          TextDecoration.underline, // Visual cue for a link
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

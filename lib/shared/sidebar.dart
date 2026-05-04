@@ -29,14 +29,21 @@ class _SideBarState extends State<SideBar> {
   Widget build(BuildContext context) {
     return Container(
       width: 250,
-      color: AppTheme.pdark, // #181818
+      decoration: BoxDecoration(
+        color: AppTheme.pdark,
+        // Subtle vertical line to separate sidebar from content
+        border: Border(
+          right: BorderSide(
+            color: Colors.white.withValues(alpha: 0.05),
+            width: 1,
+          ),
+        ),
+      ),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight
-              ),
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,

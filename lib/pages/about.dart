@@ -5,6 +5,14 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    // Replace Placeholder with a scrollable view to prevent height conflicts
+    return const SingleChildScrollView(
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(32.0),
+          child: Text("About cLOUDS"),
+        ),
+      ),
+    );
   }
 }
