@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:clouds/core/utils/layout_utils.dart';
-
 import 'home_desktop.dart';
 import 'home_tablet.dart';
 import 'home_mobile_web.dart';

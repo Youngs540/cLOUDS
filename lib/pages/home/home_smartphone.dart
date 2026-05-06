@@ -3,6 +3,7 @@ import 'package:clouds/shared/searchbar.dart';
 import 'package:clouds/shared/new_release.dart';
 import 'package:clouds/core/themes/themes.dart';
 import 'widgets/home_shared_widgets.dart';
+import 'package:clouds/pages/now_playing/now_playing_view.dart';
 
 class HomeSmartphone extends StatelessWidget {
   const HomeSmartphone({super.key});
@@ -19,7 +20,13 @@ class HomeSmartphone extends StatelessWidget {
                 floating: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
-                  title: const Text('cLOUDS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  title: const Text(
+                    'cLOUDS',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   background: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -39,16 +46,31 @@ class HomeSmartphone extends StatelessWidget {
                     children: [
                       const TopSearchBar(),
                       const SizedBox(height: 24),
-                      Text("New Release", style: Theme.of(context).textTheme.titleMedium),
+                      Text(
+                        "New Release",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       const SizedBox(height: 16),
                       SizedBox(
                         height: 140,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: const [
-                            NewReleaseCard(title: 'odo', artisteName: 'Kojo Rain', genre: 'HighLife'),
-                            NewReleaseCard(title: 'Lost Sheep', artisteName: 'Kojo Rain', genre: 'Rap'),
-                            NewReleaseCard(title: 'Im not a Leader', artisteName: 'Kojo Rain', genre: 'HipLife'),
+                            NewReleaseCard(
+                              title: 'odo',
+                              artisteName: 'Kojo Rain',
+                              genre: 'HighLife',
+                            ),
+                            NewReleaseCard(
+                              title: 'Lost Sheep',
+                              artisteName: 'Kojo Rain',
+                              genre: 'Rap',
+                            ),
+                            NewReleaseCard(
+                              title: 'Im not a Leader',
+                              artisteName: 'Kojo Rain',
+                              genre: 'HipLife',
+                            ),
                           ],
                         ),
                       ),
@@ -60,7 +82,9 @@ class HomeSmartphone extends StatelessWidget {
                       HomeSharedWidgets.buildFavoriteTracksColumn(context),
                       const SizedBox(height: 32),
                       HomeSharedWidgets.buildLastPlayedColumn(context),
-                      const SizedBox(height: 80), // Padding for DraggableScrollableSheet
+                      const SizedBox(
+                        height: 80,
+                      ), // Padding for DraggableScrollableSheet
                     ],
                   ),
                 ),
@@ -103,13 +127,36 @@ class HomeSmartphone extends StatelessWidget {
                       ),
                       // Mini Player (Visible when collapsed)
                       const ListTile(
-                        leading: Icon(Icons.music_note, color: AppTheme.newPurple),
-                        title: Text("Now Playing: Odo", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        subtitle: Text("Kojo Rain", style: TextStyle(color: AppTheme.textSecondary)),
+                        leading: Icon(
+                          Icons.music_note,
+                          color: AppTheme.newPurple,
+                        ),
+                        title: Text(
+                          "Now Playing: Odo",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "Kojo Rain",
+                          style: TextStyle(color: AppTheme.textSecondary),
+                        ),
                         trailing: Icon(Icons.play_arrow, color: Colors.white),
                       ),
-                      // Expanded Player content would go here
-                      const SizedBox(height: 400, child: Center(child: Text("Expanded Player View", style: TextStyle(color: Colors.white)))),
+                      // Expanded Player content
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: NowPlayingView(
+                          onCollapse: () {
+                            scrollController.animateTo(
+                              0.0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

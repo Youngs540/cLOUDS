@@ -10,7 +10,7 @@ class PlayerBar extends StatelessWidget {
       height: 90,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppTheme.pdark, // <--- MOVE IT HERE
+        color: AppTheme.pdark, //
         border: Border(
           top: BorderSide(
             color: Colors.white.withValues(alpha: 0.05),

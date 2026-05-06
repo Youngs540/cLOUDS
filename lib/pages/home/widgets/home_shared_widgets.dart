@@ -142,7 +142,7 @@ class HomeSharedWidgets {
 
   static Widget buildLatestReleaseHero(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 320),
+      constraints: const BoxConstraints(maxHeight: 340),
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
@@ -178,69 +178,67 @@ class HomeSharedWidgets {
                     ],
                   ),
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const SizedBox(height: 80),
-                      const Text(
-                        "LATEST RELEASE",
-                        style: TextStyle(
-                          color: AppTheme.textSecondary,
-                          letterSpacing: 1.5,
-                          fontSize: 12,
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const SizedBox(height: 80),
+                    const Text(
+                      "LATEST RELEASE",
+                      style: TextStyle(
+                        color: AppTheme.textSecondary,
+                        letterSpacing: 1.5,
+                        fontSize: 12,
                       ),
-                      const Text(
-                        "Odo",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    const Text(
+                      "Odo",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 20),
-                      Wrap(
-                        spacing: 12,
-                        runSpacing: 12,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              context.read<MusicPlayerProvider>().playTrack(
-                                track: 'Odo',
-                                artist: 'Kojo Rain',
-                                duration: '4:32',
-                              );
-                            },
-                            icon: const Icon(Icons.play_arrow, color: Colors.black),
-                            label: const Text(
-                              "LISTEN NOW",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppTheme.newPurple,
-                              shape: const StadiumBorder(),
+                    ),
+                    const SizedBox(height: 20),
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            context.read<MusicPlayerProvider>().playTrack(
+                              track: 'Odo',
+                              artist: 'Kojo Rain',
+                              duration: '4:32',
+                            );
+                          },
+                          icon: const Icon(Icons.play_arrow, color: Colors.black),
+                          label: const Text(
+                            "LISTEN NOW",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          OutlinedButton(
-                            onPressed: () {},
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Colors.white54),
-                              shape: const StadiumBorder(),
-                            ),
-                            child: const Text(
-                              "SAVE TO PLAYLIST",
-                              style: TextStyle(color: Colors.white),
-                            ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.newPurple,
+                            shape: const StadiumBorder(),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Colors.white54),
+                            shape: const StadiumBorder(),
+                          ),
+                          child: const Text(
+                            "SAVE TO PLAYLIST",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

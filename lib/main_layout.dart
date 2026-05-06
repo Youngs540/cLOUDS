@@ -2,6 +2,7 @@ import 'package:clouds/pages/home/home_view.dart';
 import 'package:clouds/pages/music/music_view.dart';
 import 'package:clouds/pages/studio/studio_view.dart';
 import 'package:clouds/core/utils/layout_utils.dart';
+import 'package:clouds/shared/mob_playerbar.dart';
 import 'package:flutter/material.dart';
 import 'package:clouds/shared/sidebar.dart';
 import 'package:clouds/shared/player_bar.dart';
@@ -55,9 +56,14 @@ class _MainLayoutState extends State<MainLayout> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 90,
-              child: PlayerBar(),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: MediaQuery.of(context).size.height > 150
+                  ? const SizedBox(
+                      height: 90,
+                      child: PlayerBar(key: ValueKey('player')),
+                    )
+                  : const SizedBox.shrink(key: ValueKey('empty')),
             ),
           ],
         ),
@@ -68,6 +74,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   Widget _buildMobileLayout(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
@@ -78,27 +85,34 @@ class _MainLayoutState extends State<MainLayout> {
             // We still show player bar in mobile layout above BottomNavigationBar, or we can use DraggableScrollableSheet later inside the page.
             // But for now, we keep the player bar globally if it's the app shell.
             // We'll refine this when doing home_smartphone.dart
-            const SizedBox(
-              height: 90,
-              child: PlayerBar(),
-            ),
+            MediaQuery.of(context).size.height > 150
+                ? const SizedBox(
+                    height: 90,
+                    child: MiniPlayerBar(key: ValueKey('mini_player')),
+                  )
+                : const SizedBox.shrink(key: ValueKey('empty')),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        backgroundColor: AppTheme.sdark,
-        selectedItemColor: AppTheme.newPurple,
-        unselectedItemColor: AppTheme.textSecondary,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.music_note), label: 'Music'),
-          BottomNavigationBarItem(icon: Icon(Icons.mic), label: 'Studio'),
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
-        ],
-      ),
+      bottomNavigationBar: MediaQuery.of(context).size.height > 150
+          ? BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: (index) => setState(() => _currentIndex = index),
+              backgroundColor: AppTheme.sdark,
+              selectedItemColor: AppTheme.newPurple,
+              unselectedItemColor: AppTheme.textSecondary,
+              type: BottomNavigationBarType.fixed,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.music_note),
+                  label: 'Music',
+                ),
+                BottomNavigationBarItem(icon: Icon(Icons.mic), label: 'Studio'),
+                BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
+              ],
+            )
+          : const SizedBox.shrink(),
       floatingActionButton: _currentIndex == 2 ? _buildMobileFab() : null,
     );
   }
@@ -112,10 +126,7 @@ class _MainLayoutState extends State<MainLayout> {
         icon: const Icon(Icons.add, color: Colors.black),
         label: const Text(
           "NEW UPLOAD",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -155,7 +166,9 @@ class _MainLayoutState extends State<MainLayout> {
               const SizedBox(height: 40),
 
               _buildFieldLabel("TRACK TITLE"),
-              const TextField(decoration: InputDecoration(hintText: "e.g. Odo")),
+              const TextField(
+                decoration: InputDecoration(hintText: "e.g. Odo"),
+              ),
               const SizedBox(height: 24),
 
               Row(
@@ -247,7 +260,10 @@ class _MainLayoutState extends State<MainLayout> {
           const SizedBox(width: 16),
           Text("Select $label", style: const TextStyle(color: Colors.white)),
           const Spacer(),
-          const Icon(Icons.cloud_upload_outlined, color: AppTheme.textSecondary),
+          const Icon(
+            Icons.cloud_upload_outlined,
+            color: AppTheme.textSecondary,
+          ),
         ],
       ),
     );

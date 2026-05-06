@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 enum LayoutTier { desktop, tablet, mobileWeb, smartphoneNative }
 
+// For retrieving the device type
 class LayoutUtils {
   static LayoutTier getTier(BuildContext context) {
     // 1. Native Mobile Device Check
