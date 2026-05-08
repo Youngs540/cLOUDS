@@ -1,17 +1,16 @@
+import 'package:clouds/core/models/music_models.dart';
+import 'package:clouds/core/providers/music_player_provider.dart';
 import 'package:clouds/pages/now_playing/now_playing_view.dart';
 import 'package:flutter/material.dart';
 import 'package:clouds/core/themes/themes.dart';
+import 'package:provider/provider.dart';
 
 class NewReleaseCard extends StatelessWidget {
-  final String title;
-  final String artisteName;
-  final String genre;
+  final Album album;
 
   const NewReleaseCard({
     super.key,
-    required this.title,
-    required this.artisteName,
-    required this.genre,
+    required this.album,
   });
 
   @override
@@ -20,6 +19,7 @@ class NewReleaseCard extends StatelessWidget {
       padding: const EdgeInsets.only(right: 20),
       child: InkWell(
         onTap: () {
+          context.read<MusicPlayerProvider>().setSelectedAlbum(album);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const NowPlayingView()),
@@ -36,16 +36,25 @@ class NewReleaseCard extends StatelessWidget {
           child: Row(
             children: [
               // Placeholder for Album Art
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppTheme.selected, // #2A2A2A
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.music_note,
-                  color: AppTheme.textSecondary,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  album.coverArt,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: AppTheme.selected, // #2A2A2A
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.music_note,
+                      color: AppTheme.textSecondary,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
@@ -56,12 +65,12 @@ class NewReleaseCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      title,
+                      album.title,
                       style: AppTheme.darkTheme.textTheme.titleMedium,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "$artisteName • $genre",
+                      "${album.artist} • ${album.genre}",
                       style: const TextStyle(
                         color: AppTheme.textSecondary,
                         fontSize: 12,

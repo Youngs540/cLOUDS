@@ -21,5 +21,6 @@ class HomeScreen extends StatelessWidget {
   static Widget _buildDesktop(BuildContext context) => const HomeDesktop();
   static Widget _buildTablet(BuildContext context) => const HomeTablet();
   static Widget _buildMobileWeb(BuildContext context) => const HomeMobileWeb();
-  static Widget _buildSmartphoneNative(BuildContext context) => const HomeSmartphone();
+  static Widget _buildSmartphoneNative(BuildContext context) =>
+      const HomeSmartphone();
 }

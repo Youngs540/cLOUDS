@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clouds/core/themes/themes.dart'; // Ensure this path is correct
+import 'package:clouds/core/themes/themes.dart';
 
 class SideBar extends StatefulWidget {
   final int initialIndex;
@@ -69,12 +69,6 @@ class _SideBarState extends State<SideBar> {
                         _buildNavSection(),
                       ],
                     ),
-
-                    // BOTTOM SECTION
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40),
-                      child: _buildProfileCard(),
-                    ),
                   ],
                 ),
               ),
@@ -85,14 +79,14 @@ class _SideBarState extends State<SideBar> {
     );
   }
 
-  // Helper to build the list of navigation items
+  // nav items
   Widget _buildNavSection() {
     return Column(
       children: [
         _navItem(0, Icons.home_filled, "Home"),
         _navItem(1, Icons.music_note_outlined, "Music"),
         _navItem(2, Icons.mic_external_on_rounded, "cLOUDS studio"),
-        _navItem(3, Icons.info_outline, "about"),
+        _navItem(3, Icons.person_outline, "Profile"),
       ],
     );
   }
@@ -140,52 +134,6 @@ class _SideBarState extends State<SideBar> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  // Bottom Profile Card
-  Widget _buildProfileCard() {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppTheme.sdark, // #212121
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 18,
-            backgroundColor: AppTheme.selected,
-            child: Icon(Icons.person, color: Colors.white, size: 20),
-            // Replace with: backgroundImage: AssetImage('assets/user.png'),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  "User Profile",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "VERIFIED FAN",
-                  style: TextStyle(
-                    color: AppTheme.newPurple,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

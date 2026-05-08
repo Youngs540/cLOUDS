@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:clouds/shared/searchbar.dart';
 import 'package:clouds/shared/new_release.dart';
 import 'widgets/home_shared_widgets.dart';
+import 'package:clouds/core/providers/music_player_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeTablet extends StatelessWidget {
   const HomeTablet({super.key});
@@ -20,13 +22,18 @@ class HomeTablet extends StatelessWidget {
             const SizedBox(height: 20),
             SizedBox(
               height: 140,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: const [
-                  NewReleaseCard(title: 'odo', artisteName: 'Kojo Rain', genre: 'HighLife'),
-                  NewReleaseCard(title: 'Lost Sheep', artisteName: 'Kojo Rain', genre: 'Rap'),
-                  NewReleaseCard(title: 'Im not a Leader', artisteName: 'Kojo Rain', genre: 'HipLife'),
-                ],
+              child: Consumer<MusicPlayerProvider>(
+                builder: (context, provider, child) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: provider.albums.length,
+                    itemBuilder: (context, index) {
+                      return NewReleaseCard(
+                        album: provider.albums[index],
+                      );
+                    },
+                  );
+                },
               ),
             ),
             const SizedBox(height: 20),

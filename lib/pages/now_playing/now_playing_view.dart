@@ -3,6 +3,7 @@ import 'package:clouds/core/utils/layout_utils.dart';
 
 import 'now_playing_desktop.dart';
 import 'now_playing_smartphone.dart';
+import 'now_playing_tablet.dart';
 
 class NowPlayingView extends StatelessWidget {
   final ScrollController? scrollController;
@@ -12,11 +13,9 @@ class NowPlayingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // If it's desktop/tablet, show the horizontal split layout.
-    // If it's mobile web or smartphone native, show the vertical layout.
     return ResponsiveWrapper(
       desktop: (context) => const NowPlayingDesktop(),
-      tablet: (context) => const NowPlayingDesktop(),
+      tablet: (context) => const NowPlayingTablet(),
       mobileWeb: (context) => NowPlayingSmartphone(
         scrollController: scrollController,
         onCollapse: onCollapse,

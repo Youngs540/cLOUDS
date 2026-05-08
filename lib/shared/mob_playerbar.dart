@@ -10,7 +10,9 @@ class MiniPlayerBar extends StatelessWidget {
   Widget build(BuildContext context) {
     // Listen to your provider for current song details
     final playerProvider = context.watch<MusicPlayerProvider>();
-    final currentSong = playerProvider.currentTrack;
+    // final currentSong = playerProvider.currentTrack;
+
+    // if (currentSong == null) return const SizedBox.shrink();
 
     return Container(
       // margin: const EdgeInsets.only(top: 10),

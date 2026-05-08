@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:clouds/core/providers/auth_provider.dart';
+import 'package:clouds/pages/profile/profile_view.dart';
 import 'package:clouds/core/themes/themes.dart';
 
 class TopSearchBar extends StatelessWidget {
@@ -35,11 +38,22 @@ class TopSearchBar extends StatelessWidget {
         const SizedBox(width: 8),
 
         // 3. MINI PROFILE CIRCLE
-        const CircleAvatar(
-          radius: 18,
-          backgroundImage: AssetImage(
-            'assets/images/fam.jpg',
-          ), // Replace with your asset
+        Consumer<AuthProvider>(
+          builder: (context, auth, child) {
+            return InkWell(
+              onTap: () {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => ProfileView()));
+              },
+              borderRadius: BorderRadius.circular(18),
+              child: const CircleAvatar(
+                radius: 18,
+                backgroundColor: AppTheme.selected,
+                backgroundImage: AssetImage('assets/images/fam.jpg'),
+              ),
+            );
+          },
         ),
       ],
     );

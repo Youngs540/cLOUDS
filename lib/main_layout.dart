@@ -1,3 +1,4 @@
+import 'package:clouds/pages/profile/profile_view.dart';
 import 'package:clouds/pages/home/home_view.dart';
 import 'package:clouds/pages/music/music_view.dart';
 import 'package:clouds/pages/studio/studio_view.dart';
@@ -22,7 +23,7 @@ class _MainLayoutState extends State<MainLayout> {
     const HomeScreen(),
     const MusicPage(),
     const StudioPage(),
-    const Center(child: Text('about')),
+    const ProfileView(),
   ];
 
   @override
@@ -109,7 +110,7 @@ class _MainLayoutState extends State<MainLayout> {
                   label: 'Music',
                 ),
                 BottomNavigationBarItem(icon: Icon(Icons.mic), label: 'Studio'),
-                BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
+                BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
               ],
             )
           : const SizedBox.shrink(),
