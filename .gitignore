@@ -48,3 +48,4 @@ app.*.map.json
 dummy note
 dummy_note
 to do
+lib/firebase_options.dart
