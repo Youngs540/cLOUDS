@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:clouds/core/providers/auth_provider.dart';
 import 'package:clouds/core/themes/themes.dart';
-import 'package:clouds/pages/profile/widgets/stat_item.dart';
 
 class ProfileSmartphone extends StatelessWidget {
   const ProfileSmartphone({super.key});
